@@ -35,6 +35,23 @@ angular.module('starter', ['ionic', 'ngCordova'])
 })
 .controller('MapCtrl', function($scope, $state, $cordovaGeolocation) {
   var options = {timeout: 10000, enableHighAccuracy: true};
+  var infowindow = new google.maps.InfoWindow();
+
+  var createMarker = function(place){
+
+    var placeLoc = place.geometry.location;
+    var marker = new google.maps.Marker({
+      map: $scope.map,
+      position: place.geometry.location
+    });
+
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.setContent(place.name);
+      infowindow.open($scope.map, this);
+    });
+
+    
+  }
  
   $cordovaGeolocation.getCurrentPosition(options).then(function(position){
  
@@ -47,6 +64,21 @@ angular.module('starter', ['ionic', 'ngCordova'])
     };
  
     $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+     var service = new google.maps.places.PlacesService($scope.map);
+    service.nearbySearch({
+      location: latLng,
+      radius: 500,
+      type: ['store']
+    }, function(results, status){
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        for (var i = 0; i < results.length; i++) {
+          createMarker(results[i]);
+        }
+      }
+
+
+    });
+
  
   }, function(error){
     console.log("Could not get location");
