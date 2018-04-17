@@ -24,14 +24,22 @@
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
 
+    <!-- Debug logging -->
+    <script type='text/javascript' src='js/firebase.js'></script>
+    <script src="js/uuid.js"></script>
+    <script src="js/jsLogger.js"></script>
+    <script>
+    
+    console.debug(true);
+    console.saveLog(true);
+
+    </script>
+
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="lib/ngCordova/dist/ng-cordova.js"></script>
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
-    <script type='text/javascript' src='js/firebase.js'></script>
-    <script src="js/uuid.js"></script>
-    <script src="js/jsLogger.js"></script>
 
 
     <!-- your app's js -->
